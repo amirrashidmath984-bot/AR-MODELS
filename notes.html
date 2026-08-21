@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Notes | Siinaaf School Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f8fafc;
+    color:#0f172a;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:68px;
+    padding:0 5%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid #e2e8f0;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    text-decoration:none;
+    color:#0f172a;
+}
+
+.logo{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    color:white;
+    font-weight:900;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+}
+
+.brand h2{
+    font-size:15px;
+}
+
+.brand small{
+    display:block;
+    color:#64748b;
+    font-size:9px;
+    margin-top:3px;
+}
+
+.back{
+    color:#2563eb;
+    text-decoration:none;
+    font-size:11px;
+    font-weight:bold;
+}
+
+
+/* HERO */
+
+.hero{
+    padding:60px 5% 45px;
+    text-align:center;
+
+    background:
+    radial-gradient(
+        circle at 20% 20%,
+        rgba(37,99,235,.12),
+        transparent 30%
+    ),
+    radial-gradient(
+        circle at 80% 80%,
+        rgba(124,58,237,.12),
+        transparent 30%
+    );
+}
+
+.hero h1{
+    font-size:clamp(34px,7vw,55px);
+    margin-bottom:10px;
+}
+
+.hero h1 span{
+    color:#2563eb;
+}
+
+.hero p{
+    color:#64748b;
+    font-size:12px;
+}
+
+
+/* CONTAINER */
+
+.container{
+    max-width:1050px;
+    margin:auto;
+    padding:30px 5% 70px;
+}
+
+
+/* TOOLBAR */
+
+.toolbar{
+    display:grid;
+    grid-template-columns:1fr 200px;
+
+    gap:10px;
+
+    margin-bottom:25px;
+}
+
+input,
+select{
+    height:45px;
+
+    border:1px solid #e2e8f0;
+    border-radius:11px;
+
+    padding:0 13px;
+
+    background:white;
+
+    outline:none;
+
+    font-size:11px;
+}
+
+input:focus,
+select:focus{
+    border-color:#2563eb;
+}
+
+
+/* NOTES */
+
+.notes{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
+}
+
+.note{
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    box-shadow:
+    0 8px 25px rgba(15,23,42,.04);
+
+    transition:.2s;
+}
+
+.note:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 15px 35px rgba(15,23,42,.08);
+}
+
+.noteMeta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:14px;
+}
+
+.subject{
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    font-size:8px;
+
+    font-weight:bold;
+}
+
+.grade{
+    color:#64748b;
+
+    font-size:8px;
+
+    font-weight:bold;
+}
+
+.note h2{
+    font-size:16px;
+
+    margin-bottom:10px;
+}
+
+.noteContent{
+    color:#475569;
+
+    font-size:11px;
+
+    line-height:1.8;
+
+    white-space:pre-wrap;
+
+    max-height:130px;
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+.noteContent.open{
+    max-height:none;
+}
+
+.readBtn{
+    margin-top:15px;
+
+    border:0;
+
+    padding:9px 13px;
+
+    border-radius:9px;
+
+    background:#0f172a;
+
+    color:white;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.date{
+    margin-top:12px;
+
+    color:#94a3b8;
+
+    font-size:8px;
+}
+
+
+/* EMPTY */
+
+.empty{
+    display:none;
+
+    padding:60px 20px;
+
+    text-align:center;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:18px;
+}
+
+.empty h3{
+    margin-bottom:8px;
+}
+
+.empty p{
+    color:#64748b;
+    font-size:10px;
+}
+
+
+/* FOOTER */
+
+footer{
+    padding:30px;
+
+    text-align:center;
+
+    background:#020617;
+
+    color:#64748b;
+
+    font-size:9px;
+}
+
+
+@media(max-width:700px){
+
+    .toolbar{
+        grid-template-columns:1fr;
+    }
+
+    .notes{
+        grid-template-columns:1fr;
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <div class="logo">
+            S³
+        </div>
+
+        <div>
+
+            <h2>
+                Siinaaf School Hub
+            </h2>
+
+            <small>
+                Digital Library
+            </small>
+
+        </div>
+
+    </a>
+
+
+    <a
+        href="index.html"
+        class="back"
+    >
+        ← Home
+    </a>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>
+        Study <span>Notes</span>
+    </h1>
+
+    <p>
+        Learn smarter with organized notes from Siinaaf School Hub.
+    </p>
+
+</section>
+
+
+<main class="container">
+
+
+    <div class="toolbar">
+
+        <input
+            type="search"
+            id="search"
+            placeholder="🔎 Search notes..."
+            oninput="renderNotes()"
+        >
+
+
+        <select
+            id="subjectFilter"
+            onchange="renderNotes()"
+        >
+
+            <option value="all">
+                All Subjects
+            </option>
+
+            <option value="Biology">
+                Biology
+            </option>
+
+            <option value="Chemistry">
+                Chemistry
+            </option>
+
+            <option value="Physics">
+                Physics
+            </option>
+
+            <option value="Mathematics">
+                Mathematics
+            </option>
+
+            <option value="English">
+                English
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div
+        id="notes"
+        class="notes"
+    ></div>
+
+
+    <div
+        id="empty"
+        class="empty"
+    >
+
+        <h3>
+            No Notes Found
+        </h3>
+
+        <p>
+            Try another subject or search keyword.
+        </p>
+
+    </div>
+
+
+</main>
+
+
+<footer>
+
+    © 2026 Siinaaf School Hub • AS MODEL
+
+</footer>
+
+
+<script>
+
+
+/* =========================================
+   GET NOTES FROM DEVELOPER PAGE
+========================================= */
+
+function getNotes(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "siinaafNotes"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   RENDER NOTES
+========================================= */
+
+function renderNotes(){
+
+    const container =
+        document.getElementById(
+            "notes"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+
+    const search =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const subject =
+        document.getElementById(
+            "subjectFilter"
+        ).value;
+
+
+    container.innerHTML = "";
+
+
+    const notes =
+        getNotes();
+
+
+    const filtered =
+        notes.filter(
+            note => {
+
+                const text = (
+
+                    note.title +
+                    " " +
+                    note.content +
+                    " " +
+                    note.subject
+
+                ).toLowerCase();
+
+
+                const searchMatch =
+                    text.includes(
+                        search
+                    );
+
+
+                const subjectMatch =
+                    subject === "all" ||
+                    note.subject === subject;
+
+
+                return (
+                    searchMatch &&
+                    subjectMatch
+                );
+
+            }
+        );
+
+
+    if(filtered.length === 0){
+
+        empty.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    filtered.forEach(
+        (note,index) => {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+            card.className =
+                "note";
+
+
+            card.innerHTML = `
+
+                <div class="noteMeta">
+
+                    <span class="subject">
+                        ${escapeHTML(
+                            note.subject
+                        )}
+                    </span>
+
+                    <span class="grade">
+                        ${escapeHTML(
+                            note.grade ||
+                            "General"
+                        )}
+                    </span>
+
+                </div>
+
+
+                <h2>
+                    ${escapeHTML(
+                        note.title
+                    )}
+                </h2>
+
+
+                <div
+                    class="noteContent"
+                    id="content-${index}"
+                >
+                    ${escapeHTML(
+                        note.content
+                    )}
+                </div>
+
+
+                <button
+                    class="readBtn"
+                    onclick="toggleNote(${index},this)"
+                >
+                    Read More
+                </button>
+
+
+                <div class="date">
+                    Added:
+                    ${escapeHTML(
+                        note.date ||
+                        ""
+                    )}
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   READ MORE
+========================================= */
+
+function toggleNote(
+    index,
+    button
+){
+
+    const content =
+        document.getElementById(
+            "content-" + index
+        );
+
+
+    content.classList.toggle(
+        "open"
+    );
+
+
+    if(
+        content.classList.contains(
+            "open"
+        )
+    ){
+
+        button.textContent =
+            "Read Less";
+
+    }else{
+
+        button.textContent =
+            "Read More";
+
+    }
+
+}
+
+
+/* =========================================
+   HTML SAFETY
+========================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+renderNotes();
+
+
+</script>
+
+</body>
+</html>
