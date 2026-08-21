@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Dashboard | Siinaaf School Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f7fb;
+    color:#0f172a;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 5%;
+
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid #e2e8f0;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+    font-weight:900;
+}
+
+.brand h2{
+    font-size:14px;
+}
+
+.brand small{
+    display:block;
+    margin-top:3px;
+    color:#64748b;
+    font-size:8px;
+}
+
+.logout{
+    border:0;
+    background:#fee2e2;
+    color:#dc2626;
+
+    padding:10px 14px;
+
+    border-radius:9px;
+
+    font-size:9px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+/* ================= MAIN ================= */
+
+main{
+    max-width:1200px;
+    margin:auto;
+
+    padding:40px 5%;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome{
+    position:relative;
+
+    overflow:hidden;
+
+    padding:35px;
+
+    border-radius:24px;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        110deg,
+        rgba(15,23,42,.95),
+        rgba(37,99,235,.82)
+    );
+
+    margin-bottom:25px;
+}
+
+.welcome:after{
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    right:-70px;
+    top:-100px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+}
+
+.welcome small{
+    color:#bfdbfe;
+    font-size:9px;
+}
+
+.welcome h1{
+    margin-top:9px;
+
+    font-size:
+    clamp(26px,5vw,42px);
+}
+
+.welcome p{
+    margin-top:8px;
+
+    color:#dbeafe;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+/* ================= QUICK ACTIONS ================= */
+
+.actions{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+
+    margin-bottom:30px;
+}
+
+.action{
+    padding:20px;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:17px;
+
+    transition:.25s;
+}
+
+.action:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 15px 35px rgba(15,23,42,.08);
+}
+
+.actionIcon{
+    width:43px;
+    height:43px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:#eff6ff;
+
+    font-size:19px;
+
+    margin-bottom:13px;
+}
+
+.action h3{
+    font-size:12px;
+}
+
+.action p{
+    margin-top:5px;
+
+    color:#64748b;
+
+    font-size:8px;
+
+    line-height:1.6;
+}
+
+/* ================= SECTION ================= */
+
+.sectionTitle{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin:35px 0 15px;
+}
+
+.sectionTitle h2{
+    font-size:18px;
+}
+
+.sectionTitle span{
+    color:#2563eb;
+    font-size:8px;
+    font-weight:bold;
+}
+
+/* ================= RESOURCE GRID ================= */
+
+.resources{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+}
+
+.resource{
+    position:relative;
+
+    min-height:220px;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    color:white;
+}
+
+.resource img{
+    width:100%;
+    height:100%;
+
+    position:absolute;
+    inset:0;
+
+    object-fit:cover;
+
+    transition:.4s;
+}
+
+.resource:hover img{
+    transform:scale(1.07);
+}
+
+.resourceOverlay{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+
+    padding:20px;
+
+    background:
+    linear-gradient(
+        transparent 20%,
+        rgba(2,6,23,.9)
+    );
+}
+
+.resourceOverlay small{
+    color:#bfdbfe;
+    font-size:8px;
+}
+
+.resourceOverlay h3{
+    margin-top:5px;
+    font-size:17px;
+}
+
+.resourceOverlay p{
+    margin-top:5px;
+    color:#cbd5e1;
+    font-size:8px;
+}
+
+/* ================= PROGRESS ================= */
+
+.progressBox{
+    margin-top:30px;
+
+    padding:25px;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:18px;
+}
+
+.progressTop{
+    display:flex;
+    justify-content:space-between;
+
+    margin-bottom:12px;
+}
+
+.progressTop h3{
+    font-size:13px;
+}
+
+.progressTop span{
+    color:#2563eb;
+    font-size:9px;
+    font-weight:bold;
+}
+
+.progressBar{
+    height:8px;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:#e2e8f0;
+}
+
+.progressBar span{
+    display:block;
+
+    width:35%;
+    height:100%;
+
+    border-radius:20px;
+
+    background:#2563eb;
+}
+
+.progressBox p{
+    margin-top:10px;
+
+    color:#64748b;
+
+    font-size:8px;
+}
+
+/* ================= USER INFO ================= */
+
+.userInfo{
+    margin-top:30px;
+
+    padding:20px;
+
+    background:#eff6ff;
+
+    border:1px solid #dbeafe;
+
+    border-radius:16px;
+}
+
+.userInfo h3{
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.userInfo p{
+    color:#475569;
+    font-size:9px;
+    margin-top:5px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+    .actions{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .resources{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+}
+
+@media(max-width:550px){
+
+    header{
+        padding:0 4%;
+    }
+
+    .brand h2{
+        font-size:12px;
+    }
+
+    main{
+        padding:25px 4%;
+    }
+
+    .welcome{
+        padding:25px;
+    }
+
+    .actions{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .resources{
+        grid-template-columns:1fr;
+    }
+
+    .resource{
+        min-height:230px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+<a href="index.html" class="brand">
+
+<div class="logo">
+S³
+</div>
+
+<div>
+
+<h2>
+Siinaaf School Hub
+</h2>
+
+<small>
+Student Dashboard
+</small>
+
+</div>
+
+</a>
+
+
+<button
+class="logout"
+onclick="logout()"
+>
+LOGOUT
+</button>
+
+</header>
+
+
+<main>
+
+
+<!-- ================= WELCOME ================= -->
+
+<section class="welcome">
+
+<small>
+WELCOME BACK, STUDENT 👋
+</small>
+
+<h1 id="studentName">
+Student
+</h1>
+
+<p>
+Your learning dashboard is ready.
+Choose a resource below and continue your study.
+</p>
+
+</section>
+
+
+<!-- ================= QUICK ACTIONS ================= -->
+
+<div class="actions">
+
+
+<a
+href="notes.html"
+class="action"
+>
+
+<div class="actionIcon">
+📚
+</div>
+
+<h3>
+Study Notes
+</h3>
+
+<p>
+Read your available notes.
+</p>
+
+</a>
+
+
+<a
+href="questions.html"
+class="action"
+>
+
+<div class="actionIcon">
+🧠
+</div>
+
+<h3>
+Questions
+</h3>
+
+<p>
+Practice your questions.
+</p>
+
+</a>
+
+
+<a
+href="entrance.html"
+class="action"
+>
+
+<div class="actionIcon">
+🎯
+</div>
+
+<h3>
+Entrance Exam
+</h3>
+
+<p>
+Start exam preparation.
+</p>
+
+</a>
+
+
+<a
+href="library.html"
+class="action"
+>
+
+<div class="actionIcon">
+📖
+</div>
+
+<h3>
+Digital Library
+</h3>
+
+<p>
+Explore books and resources.
+</p>
+
+</a>
+
+
+</div>
+
+
+<!-- ================= RESOURCES ================= -->
+
+<div class="sectionTitle">
+
+<h2>
+Explore Learning
+</h2>
+
+<span>
+SIINAAF HUB
+</span>
+
+</div>
+
+
+<div class="resources">
+
+
+<a
+href="notes.html"
+class="resource"
+>
+
+<img
+src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1000&q=85"
+alt="Notes"
+>
+
+<div class="resourceOverlay">
+
+<small>
+LEARNING
+</small>
+
+<h3>
+Digital Notes
+</h3>
+
+<p>
+Organized notes for your subjects.
+</p>
+
+</div>
+
+</a>
+
+
+<a
+href="questions.html"
+class="resource"
+>
+
+<img
+src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1000&q=85"
+alt="Questions"
+>
+
+<div class="resourceOverlay">
+
+<small>
+PRACTICE
+</small>
+
+<h3>
+Question Bank
+</h3>
+
+<p>
+Challenge yourself with practice.
+</p>
+
+</div>
+
+</a>
+
+
+<a
+href="entrance.html"
+class="resource"
+>
+
+<img
+src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85"
+alt="Entrance Exam"
+>
+
+<div class="resourceOverlay">
+
+<small>
+EXAM
+</small>
+
+<h3>
+Entrance Preparation
+</h3>
+
+<p>
+Prepare for your next level.
+</p>
+
+</div>
+
+</a>
+
+
+<a
+href="gallery.html"
+class="resource"
+>
+
+<img
+src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=85"
+alt="Gallery"
+>
+
+<div class="resourceOverlay">
+
+<small>
+SCHOOL
+</small>
+
+<h3>
+Gallery
+</h3>
+
+<p>
+Explore school images and activities.
+</p>
+
+</div>
+
+</a>
+
+
+<a
+href="library.html"
+class="resource"
+>
+
+<img
+src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1000&q=85"
+alt="Library"
+>
+
+<div class="resourceOverlay">
+
+<small>
+RESOURCES
+</small>
+
+<h3>
+Digital Library
+</h3>
+
+<p>
+Books, PDFs and useful resources.
+</p>
+
+</div>
+
+</a>
+
+
+<a
+href="index.html#about"
+class="resource"
+>
+
+<img
+src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1000&q=85"
+alt="Future"
+>
+
+<div class="resourceOverlay">
+
+<small>
+SIINAAF
+</small>
+
+<h3>
+About School Hub
+</h3>
+
+<p>
+Learn more about the platform.
+</p>
+
+</div>
+
+</a>
+
+
+</div>
+
+
+<!-- ================= PROGRESS ================= -->
+
+<div class="sectionTitle">
+
+<h2>
+Study Progress
+</h2>
+
+<span>
+YOUR JOURNEY
+</span>
+
+</div>
+
+
+<div class="progressBox">
+
+<div class="progressTop">
+
+<h3>
+Learning Progress
+</h3>
+
+<span>
+35%
+</span>
+
+</div>
+
+<div class="progressBar">
+<span></span>
+</div>
+
+<p>
+Keep studying and practicing consistently
+to improve your performance.
+</p>
+
+</div>
+
+
+<!-- ================= USER INFO ================= -->
+
+<div class="userInfo">
+
+<h3>
+Student Account
+</h3>
+
+<p>
+<strong>Name:</strong>
+<span id="infoName">—</span>
+</p>
+
+<p>
+<strong>Student ID:</strong>
+<span id="infoId">—</span>
+</p>
+
+<p>
+<strong>Status:</strong>
+<span>
+Logged in
+</span>
+</p>
+
+</div>
+
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   SECURITY CHECK
+===================================================== */
+
+const loggedIn =
+    localStorage.getItem(
+        "siinaafStudentLoggedIn"
+    );
+
+
+if(loggedIn !== "true"){
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+
+/* =====================================================
+   STUDENT DATA
+===================================================== */
+
+const savedStudent =
+    localStorage.getItem(
+        "siinaafStudent"
+    );
+
+
+if(savedStudent){
+
+    try{
+
+        const student =
+            JSON.parse(savedStudent);
+
+
+        document.getElementById(
+            "studentName"
+        ).textContent =
+            student.name;
+
+
+        document.getElementById(
+            "infoName"
+        ).textContent =
+            student.name;
+
+
+        document.getElementById(
+            "infoId"
+        ).textContent =
+            student.id;
+
+
+    }catch(error){
+
+        console.log(
+            "Student data error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+    localStorage.removeItem(
+        "siinaafStudentLoggedIn"
+    );
+
+    localStorage.removeItem(
+        "siinaafStudent"
+    );
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+</script>
+
+</body>
+</html>

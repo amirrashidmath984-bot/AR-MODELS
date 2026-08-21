@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Login | Siinaaf School Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-family:Arial,sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(2,6,23,.92),
+        rgba(30,64,175,.75)
+    ),
+    url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85")
+    center/cover;
+
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:420px;
+}
+
+.logo{
+    width:65px;
+    height:65px;
+
+    margin:0 auto 15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+
+    font-size:20px;
+    font-weight:900;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.3);
+}
+
+.card{
+    padding:32px;
+
+    border-radius:24px;
+
+    background:
+    rgba(255,255,255,.95);
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,.3);
+}
+
+.title{
+    text-align:center;
+}
+
+.title h1{
+    font-size:24px;
+
+    color:#0f172a;
+
+    margin-bottom:7px;
+}
+
+.title p{
+    color:#64748b;
+
+    font-size:10px;
+
+    line-height:1.6;
+
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+
+    margin-bottom:7px;
+
+    color:#334155;
+
+    font-size:9px;
+
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+
+    height:47px;
+
+    padding:0 14px;
+
+    margin-bottom:15px;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:11px;
+
+    outline:none;
+
+    font-size:11px;
+
+    background:#f8fafc;
+
+    transition:.2s;
+}
+
+input:focus{
+    border-color:#2563eb;
+
+    background:white;
+
+    box-shadow:
+    0 0 0 3px rgba(37,99,235,.1);
+}
+
+.passwordBox{
+    position:relative;
+}
+
+.passwordBox input{
+    padding-right:50px;
+}
+
+.showPassword{
+    position:absolute;
+
+    right:13px;
+    top:14px;
+
+    border:0;
+    background:none;
+
+    cursor:pointer;
+
+    color:#64748b;
+
+    font-size:14px;
+}
+
+.loginBtn{
+    width:100%;
+
+    height:48px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:
+    0 10px 25px rgba(37,99,235,.25);
+}
+
+.loginBtn:hover{
+    transform:translateY(-2px);
+
+    background:#1d4ed8;
+}
+
+.message{
+    min-height:20px;
+
+    margin-top:13px;
+
+    text-align:center;
+
+    font-size:9px;
+
+    font-weight:bold;
+}
+
+.back{
+    display:block;
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:9px;
+
+    text-decoration:none;
+}
+
+.back:hover{
+    color:#2563eb;
+}
+
+.info{
+    margin-top:18px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:#eff6ff;
+
+    color:#475569;
+
+    font-size:8px;
+
+    line-height:1.6;
+
+    text-align:center;
+}
+
+@media(max-width:450px){
+
+    .card{
+        padding:25px 20px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+S³
+</div>
+
+<div class="card">
+
+<div class="title">
+
+<h1>
+Student Login
+</h1>
+
+<p>
+Welcome to <b>Siinaaf School Hub</b>.<br>
+Login to access your private learning materials.
+</p>
+
+</div>
+
+
+<form id="loginForm">
+
+<label>
+Student Name
+</label>
+
+<input
+type="text"
+id="studentName"
+placeholder="Enter your name"
+autocomplete="name"
+required
+>
+
+
+<label>
+Student ID
+</label>
+
+<input
+type="text"
+id="studentId"
+placeholder="Enter your student ID"
+required
+>
+
+
+<label>
+Password
+</label>
+
+<div class="passwordBox">
+
+<input
+type="password"
+id="password"
+placeholder="Enter password"
+required
+>
+
+<button
+type="button"
+class="showPassword"
+onclick="togglePassword()"
+>
+👁
+</button>
+
+</div>
+
+
+<button
+type="submit"
+class="loginBtn"
+>
+LOGIN TO SCHOOL HUB →
+</button>
+
+</form>
+
+
+<div
+id="message"
+class="message"
+></div>
+
+
+<div class="info">
+
+🔐 Your login session is stored locally
+on this device for this website.
+
+</div>
+
+
+<a
+href="index.html"
+class="back"
+>
+← Back to Siinaaf School Hub
+</a>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   LOGIN SETTINGS
+===================================================== */
+
+/*
+   For the prototype, students can use:
+
+   Student ID:
+   any ID
+
+   Password:
+   1234
+
+   Later, Developer Page can create
+   real student accounts.
+*/
+
+
+const DEMO_PASSWORD = "1234";
+
+
+/* =====================================================
+   PASSWORD SHOW / HIDE
+===================================================== */
+
+function togglePassword(){
+
+    const password =
+        document.getElementById(
+            "password"
+        );
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+    }else{
+
+        password.type = "password";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+document
+.getElementById("loginForm")
+.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+
+        const name =
+            document
+            .getElementById("studentName")
+            .value
+            .trim();
+
+
+        const id =
+            document
+            .getElementById("studentId")
+            .value
+            .trim();
+
+
+        const password =
+            document
+            .getElementById("password")
+            .value;
+
+
+        const message =
+            document
+            .getElementById("message");
+
+
+        if(!name || !id || !password){
+
+            message.style.color =
+                "#dc2626";
+
+            message.textContent =
+                "Please complete all fields.";
+
+            return;
+
+        }
+
+
+        /*
+           Demo authentication
+        */
+
+        if(password !== DEMO_PASSWORD){
+
+            message.style.color =
+                "#dc2626";
+
+            message.textContent =
+                "Incorrect password.";
+
+            return;
+
+        }
+
+
+        /*
+           Save login session
+        */
+
+        const student = {
+
+            name:name,
+
+            id:id,
+
+            loginTime:
+                new Date().toISOString()
+
+        };
+
+
+        localStorage.setItem(
+            "siinaafStudentLoggedIn",
+            "true"
+        );
+
+
+        localStorage.setItem(
+            "siinaafStudent",
+            JSON.stringify(student)
+        );
+
+
+        message.style.color =
+            "#16a34a";
+
+        message.textContent =
+            "Login successful. Opening School Hub...";
+
+
+        /*
+           Redirect
+        */
+
+        setTimeout(
+            function(){
+
+                window.location.href =
+                    "student-dashboard.html";
+
+            },
+            700
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>

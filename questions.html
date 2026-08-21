@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Question Bank | Siinaaf School Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f7fb;
+    color:#0f172a;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 5%;
+
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid #e2e8f0;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    text-decoration:none;
+    color:#0f172a;
+}
+
+.logo{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+    font-weight:900;
+}
+
+.brand h2{
+    font-size:14px;
+}
+
+.brand small{
+    display:block;
+    color:#64748b;
+    font-size:8px;
+    margin-top:3px;
+}
+
+.back{
+    padding:10px 14px;
+
+    border-radius:9px;
+
+    background:#eff6ff;
+    color:#2563eb;
+
+    text-decoration:none;
+
+    font-size:9px;
+    font-weight:bold;
+}
+
+main{
+    max-width:950px;
+    margin:auto;
+
+    padding:35px 5%;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    padding:30px;
+
+    margin-bottom:22px;
+
+    border-radius:22px;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        110deg,
+        rgba(15,23,42,.96),
+        rgba(37,99,235,.85)
+    );
+}
+
+.hero small{
+    color:#bfdbfe;
+    font-size:8px;
+    letter-spacing:2px;
+    font-weight:bold;
+}
+
+.hero h1{
+    margin-top:9px;
+
+    font-size:
+    clamp(28px,5vw,45px);
+}
+
+.hero p{
+    margin-top:8px;
+
+    max-width:600px;
+
+    color:#dbeafe;
+
+    font-size:10px;
+    line-height:1.7;
+}
+
+/* ================= CONTROLS ================= */
+
+.controls{
+    display:flex;
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+select{
+    height:43px;
+
+    padding:0 12px;
+
+    border:1px solid #e2e8f0;
+    border-radius:10px;
+
+    background:white;
+
+    color:#334155;
+}
+
+/* ================= QUESTION ================= */
+
+.questionCard{
+    padding:25px;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 12px 30px rgba(15,23,42,.05);
+}
+
+.questionNumber{
+    display:inline-block;
+
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    font-size:8px;
+    font-weight:bold;
+}
+
+.subject{
+    margin-left:5px;
+
+    color:#64748b;
+
+    font-size:8px;
+}
+
+.question{
+    margin-top:18px;
+
+    font-size:17px;
+
+    line-height:1.6;
+}
+
+.options{
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:10px;
+
+    margin-top:22px;
+}
+
+.option{
+    width:100%;
+
+    padding:15px;
+
+    text-align:left;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:12px;
+
+    background:#f8fafc;
+
+    color:#334155;
+
+    cursor:pointer;
+
+    font-size:10px;
+
+    transition:.2s;
+}
+
+.option:hover{
+    border-color:#93c5fd;
+
+    background:#eff6ff;
+}
+
+.option.selected{
+    border-color:#2563eb;
+
+    background:#eff6ff;
+
+    color:#1d4ed8;
+}
+
+.option.correct{
+    border-color:#16a34a;
+
+    background:#dcfce7;
+
+    color:#166534;
+}
+
+.option.wrong{
+    border-color:#dc2626;
+
+    background:#fee2e2;
+
+    color:#991b1b;
+}
+
+.option:disabled{
+    cursor:not-allowed;
+}
+
+/* ================= EXPLANATION ================= */
+
+.explanation{
+    display:none;
+
+    margin-top:18px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+    font-size:9px;
+
+    line-height:1.7;
+}
+
+.explanation.show{
+    display:block;
+}
+
+/* ================= BUTTONS ================= */
+
+.buttons{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.btn{
+    border:0;
+
+    padding:12px 17px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:9px;
+    font-weight:bold;
+}
+
+.next{
+    background:#2563eb;
+    color:white;
+}
+
+.previous{
+    background:#e2e8f0;
+    color:#334155;
+}
+
+.finish{
+    background:#16a34a;
+    color:white;
+}
+
+/* ================= SCORE ================= */
+
+.scoreBox{
+    display:none;
+
+    padding:35px;
+
+    text-align:center;
+
+    background:white;
+
+    border-radius:22px;
+
+    border:1px solid #e2e8f0;
+}
+
+.scoreBox.show{
+    display:block;
+}
+
+.scoreCircle{
+    width:100px;
+    height:100px;
+
+    margin:0 auto 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    font-size:25px;
+    font-weight:900;
+}
+
+.scoreBox h2{
+    font-size:24px;
+}
+
+.scoreBox p{
+    margin-top:8px;
+
+    color:#64748b;
+
+    font-size:10px;
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+    padding:45px;
+
+    text-align:center;
+
+    background:white;
+
+    border-radius:20px;
+
+    border:1px solid #e2e8f0;
+
+    color:#64748b;
+
+    font-size:11px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+    main{
+        padding:25px 4%;
+    }
+
+    .question{
+        font-size:14px;
+    }
+
+    .options{
+        grid-template-columns:1fr;
+    }
+
+    .buttons{
+        flex-wrap:wrap;
+    }
+
+    .btn{
+        flex:1;
+    }
+
+    .brand h2{
+        font-size:12px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+<a
+href="student-dashboard.html"
+class="brand"
+>
+
+<div class="logo">
+S³
+</div>
+
+<div>
+
+<h2>
+Siinaaf School Hub
+</h2>
+
+<small>
+Question Bank
+</small>
+
+</div>
+
+</a>
+
+<a
+href="student-dashboard.html"
+class="back"
+>
+← DASHBOARD
+</a>
+
+</header>
+
+
+<main>
+
+
+<section class="hero">
+
+<small>
+PRACTICE • TEST • IMPROVE
+</small>
+
+<h1>
+Question Bank
+</h1>
+
+<p>
+Practice questions uploaded through the
+Siinaaf School Hub developer system.
+Select an answer and check your result.
+</p>
+
+</section>
+
+
+<div
+id="controls"
+class="controls"
+>
+
+<select
+id="subjectFilter"
+onchange="startQuiz()"
+>
+
+<option value="all">
+All Subjects
+</option>
+
+<option value="Biology">
+Biology
+</option>
+
+<option value="Chemistry">
+Chemistry
+</option>
+
+<option value="Physics">
+Physics
+</option>
+
+<option value="Mathematics">
+Mathematics
+</option>
+
+<option value="English">
+English
+</option>
+
+</select>
+
+</div>
+
+
+<div
+id="quiz"
+>
+</div>
+
+
+<div
+id="scoreBox"
+class="scoreBox"
+>
+
+<div
+id="scoreCircle"
+class="scoreCircle"
+>
+0%
+</div>
+
+<h2>
+Quiz Completed!
+</h2>
+
+<p id="scoreText">
+</p>
+
+<br>
+
+<button
+class="btn next"
+onclick="restartQuiz()"
+>
+TRY AGAIN
+</button>
+
+</div>
+
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   LOGIN SECURITY
+===================================================== */
+
+if(
+    localStorage.getItem(
+        "siinaafStudentLoggedIn"
+    ) !== "true"
+){
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+
+/* =====================================================
+   DEFAULT QUESTIONS
+===================================================== */
+
+const defaultQuestions = [
+
+{
+    id:"q1",
+    subject:"Biology",
+
+    question:
+        "Which organelle is primarily responsible for producing ATP during aerobic respiration?",
+
+    options:[
+        "Ribosome",
+        "Mitochondrion",
+        "Golgi apparatus",
+        "Nucleus"
+    ],
+
+    answer:1,
+
+    explanation:
+        "Mitochondria are the major sites of aerobic cellular respiration and ATP production."
+},
+
+{
+    id:"q2",
+    subject:"Chemistry",
+
+    question:
+        "Which principle states that matter is neither created nor destroyed during a chemical reaction?",
+
+    options:[
+        "Law of conservation of mass",
+        "Boyle's law",
+        "Charles' law",
+        "Avogadro's law"
+    ],
+
+    answer:0,
+
+    explanation:
+        "The law of conservation of mass states that the total mass of reactants equals the total mass of products."
+},
+
+{
+    id:"q3",
+    subject:"Physics",
+
+    question:
+        "A body moving with constant velocity has which of the following properties?",
+
+    options:[
+        "Zero acceleration",
+        "Increasing acceleration",
+        "Constant non-zero acceleration",
+        "Increasing velocity"
+    ],
+
+    answer:0,
+
+    explanation:
+        "Constant velocity means velocity does not change with time, therefore acceleration is zero."
+},
+
+{
+    id:"q4",
+    subject:"Mathematics",
+
+    question:
+        "If f(x) = 2x + 3, what is f(4)?",
+
+    options:[
+        "7",
+        "8",
+        "11",
+        "12"
+    ],
+
+    answer:2,
+
+    explanation:
+        "f(4) = 2(4) + 3 = 8 + 3 = 11."
+}
+
+];
+
+
+/* =====================================================
+   GET DEVELOPER QUESTIONS
+===================================================== */
+
+function getDeveloperQuestions(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "siinaafQuestions"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   NORMALIZE QUESTION
+===================================================== */
+
+function normalizeQuestion(q,index){
+
+    let options =
+        q.options ||
+        q.choices ||
+        [
+            q.optionA,
+            q.optionB,
+            q.optionC,
+            q.optionD
+        ];
+
+    options =
+        options
+        .filter(
+            item =>
+                item !== undefined &&
+                item !== null &&
+                String(item).trim() !== ""
+        )
+        .map(
+            item => String(item)
+        );
+
+
+    let answer =
+        q.answer;
+
+
+    /*
+       Support:
+       0,1,2,3
+       A,B,C,D
+       correctAnswer
+    */
+
+    if(
+        answer === undefined
+    ){
+
+        answer =
+            q.correctAnswer;
+
+    }
+
+
+    if(
+        typeof answer === "string"
+    ){
+
+        const letter =
+            answer
+            .trim()
+            .toUpperCase();
+
+
+        if(
+            ["A","B","C","D"]
+            .includes(letter)
+        ){
+
+            answer =
+                ["A","B","C","D"]
+                .indexOf(letter);
+
+        }else{
+
+            const number =
+                Number(answer);
+
+            if(
+                !Number.isNaN(number)
+            ){
+
+                answer = number;
+
+            }
+
+        }
+
+    }
+
+
+    return {
+
+        id:
+            q.id ||
+            "developer-" + index,
+
+        subject:
+            q.subject ||
+            "General",
+
+        question:
+            q.question ||
+            q.text ||
+            "Question",
+
+        options:
+            options,
+
+        answer:
+            Number(answer),
+
+        explanation:
+            q.explanation ||
+            "Review the related concept and try again."
+
+    };
+
+}
+
+
+/* =====================================================
+   ALL QUESTIONS
+===================================================== */
+
+function getAllQuestions(){
+
+    const developer =
+        getDeveloperQuestions()
+        .map(normalizeQuestion);
+
+
+    return [
+        ...defaultQuestions,
+        ...developer
+    ];
+
+}
+
+
+/* =====================================================
+   QUIZ VARIABLES
+===================================================== */
+
+let quizQuestions = [];
+
+let current = 0;
+
+let score = 0;
+
+let answered = false;
+
+
+/* =====================================================
+   START QUIZ
+===================================================== */
+
+function startQuiz(){
+
+    const subject =
+        document
+        .getElementById(
+            "subjectFilter"
+        )
+        .value;
+
+
+    let questions =
+        getAllQuestions();
+
+
+    if(subject !== "all"){
+
+        questions =
+            questions.filter(
+                q =>
+                    String(
+                        q.subject
+                    )
+                    .toLowerCase()
+                    ===
+                    subject.toLowerCase()
+            );
+
+    }
+
+
+    quizQuestions =
+        questions;
+
+
+    current = 0;
+
+    score = 0;
+
+    answered = false;
+
+
+    document
+    .getElementById(
+        "scoreBox"
+    )
+    .classList.remove(
+        "show"
+    );
+
+
+    renderQuestion();
+
+}
+
+
+/* =====================================================
+   RENDER QUESTION
+===================================================== */
+
+function renderQuestion(){
+
+    const quiz =
+        document.getElementById(
+            "quiz"
+        );
+
+
+    if(
+        quizQuestions.length === 0
+    ){
+
+        quiz.innerHTML = `
+
+            <div class="empty">
+
+                🧠
+
+                <br><br>
+
+                No questions available.
+
+                <br><br>
+
+                Questions added by the developer
+                will appear here automatically.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const q =
+        quizQuestions[current];
+
+
+    answered = false;
+
+
+    quiz.innerHTML = `
+
+        <div class="questionCard">
+
+            <span class="questionNumber">
+                QUESTION ${current + 1}
+                / ${quizQuestions.length}
+            </span>
+
+            <span class="subject">
+                ${escapeHTML(q.subject)}
+            </span>
+
+            <div class="question">
+                ${escapeHTML(q.question)}
+            </div>
+
+            <div class="options">
+
+                ${q.options.map(
+                    (option,index) => `
+
+                    <button
+                        class="option"
+                        id="option-${index}"
+                        onclick="selectAnswer(${index})"
+                    >
+
+                        <b>
+                            ${String.fromCharCode(65 + index)}.
+                        </b>
+
+                        ${escapeHTML(option)}
+
+                    </button>
+
+                `
+                ).join("")}
+
+            </div>
+
+            <div
+                id="explanation"
+                class="explanation"
+            >
+                ${escapeHTML(q.explanation)}
+            </div>
+
+            <div class="buttons">
+
+                <button
+                    class="btn previous"
+                    onclick="previousQuestion()"
+                    ${current === 0 ? "disabled" : ""}
+                >
+                    ← PREVIOUS
+                </button>
+
+                ${
+                    current ===
+                    quizQuestions.length - 1
+
+                    ?
+
+                    `
+                    <button
+                        class="btn finish"
+                        onclick="finishQuiz()"
+                    >
+                        FINISH ✓
+                    </button>
+                    `
+
+                    :
+
+                    `
+                    <button
+                        class="btn next"
+                        onclick="nextQuestion()"
+                    >
+                        NEXT →
+                    </button>
+                    `
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   SELECT ANSWER
+===================================================== */
+
+function selectAnswer(index){
+
+    if(answered){
+        return;
+    }
+
+
+    answered = true;
+
+
+    const q =
+        quizQuestions[current];
+
+
+    const buttons =
+        document
+        .querySelectorAll(
+            ".option"
+        );
+
+
+    buttons.forEach(
+        button =>
+            button.disabled = true
+    );
+
+
+    const selected =
+        document.getElementById(
+            "option-" + index
+        );
+
+
+    const correct =
+        document.getElementById(
+            "option-" + q.answer
+        );
+
+
+    if(
+        index === q.answer
+    ){
+
+        selected.classList.add(
+            "correct"
+        );
+
+        score++;
+
+    }else{
+
+        selected.classList.add(
+            "wrong"
+        );
+
+        if(correct){
+
+            correct.classList.add(
+                "correct"
+            );
+
+        }
+
+    }
+
+
+    document
+    .getElementById(
+        "explanation"
+    )
+    .classList.add(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function nextQuestion(){
+
+    if(
+        current <
+        quizQuestions.length - 1
+    ){
+
+        current++;
+
+        renderQuestion();
+
+    }
+
+}
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function previousQuestion(){
+
+    if(current > 0){
+
+        current--;
+
+        renderQuestion();
+
+    }
+
+}
+
+
+/* =====================================================
+   FINISH
+===================================================== */
+
+function finishQuiz(){
+
+    if(
+        !answered
+    ){
+
+        alert(
+            "Please answer the question first."
+        );
+
+        return;
+
+    }
+
+
+    const total =
+        quizQuestions.length;
+
+
+    const percentage =
+        Math.round(
+            (score / total) * 100
+        );
+
+
+    document.getElementById(
+        "quiz"
+    ).innerHTML =
+        "";
+
+
+    document
+    .getElementById(
+        "scoreBox"
+    )
+    .classList.add(
+        "show"
+    );
+
+
+    document.getElementById(
+        "scoreCircle"
+    )
+    .textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "scoreText"
+    )
+    .textContent =
+        `You scored ${score} out of ${total}. Keep practicing and improve your result.`;
+
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+function restartQuiz(){
+
+    startQuiz();
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+startQuiz();
+
+</script>
+
+</body>
+</html>

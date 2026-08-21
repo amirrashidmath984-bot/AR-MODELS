@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Notes | Siinaaf School Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f7fb;
+    color:#0f172a;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 5%;
+
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid #e2e8f0;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:#0f172a;
+}
+
+.logo{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+    font-weight:900;
+}
+
+.brand h2{
+    font-size:14px;
+}
+
+.brand small{
+    display:block;
+    color:#64748b;
+    font-size:8px;
+    margin-top:3px;
+}
+
+.back{
+    padding:10px 14px;
+
+    border-radius:9px;
+
+    background:#eff6ff;
+    color:#2563eb;
+
+    text-decoration:none;
+
+    font-size:9px;
+    font-weight:bold;
+}
+
+main{
+    max-width:1150px;
+    margin:auto;
+    padding:40px 5%;
+}
+
+.hero{
+    padding:35px;
+
+    border-radius:22px;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        110deg,
+        rgba(15,23,42,.94),
+        rgba(37,99,235,.82)
+    );
+
+    margin-bottom:30px;
+}
+
+.hero small{
+    color:#bfdbfe;
+    font-size:8px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.hero h1{
+    margin-top:10px;
+
+    font-size:
+    clamp(28px,5vw,46px);
+}
+
+.hero p{
+    max-width:600px;
+
+    margin-top:10px;
+
+    color:#dbeafe;
+
+    font-size:10px;
+
+    line-height:1.8;
+}
+
+.controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+
+    margin-bottom:25px;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+
+    height:45px;
+
+    padding:0 15px;
+
+    border:1px solid #e2e8f0;
+    border-radius:10px;
+
+    outline:none;
+
+    background:white;
+}
+
+select{
+    height:45px;
+
+    padding:0 12px;
+
+    border:1px solid #e2e8f0;
+    border-radius:10px;
+
+    background:white;
+
+    color:#334155;
+}
+
+.notesGrid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+}
+
+.note{
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.25s;
+}
+
+.note:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 18px 40px rgba(15,23,42,.08);
+}
+
+.noteImage{
+    width:100%;
+    height:170px;
+
+    object-fit:cover;
+}
+
+.noteBody{
+    padding:20px;
+}
+
+.tag{
+    display:inline-block;
+
+    padding:5px 8px;
+
+    border-radius:20px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    font-size:7px;
+    font-weight:bold;
+}
+
+.note h3{
+    margin-top:10px;
+
+    font-size:16px;
+}
+
+.note p{
+    margin-top:7px;
+
+    color:#64748b;
+
+    font-size:9px;
+
+    line-height:1.7;
+}
+
+.note button{
+    width:100%;
+
+    margin-top:15px;
+
+    height:40px;
+
+    border:0;
+
+    border-radius:9px;
+
+    background:#2563eb;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:9px;
+    font-weight:bold;
+}
+
+.empty{
+    display:none;
+
+    padding:50px;
+
+    text-align:center;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:18px;
+
+    color:#64748b;
+
+    font-size:11px;
+}
+
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    z-index:9999;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(2,6,23,.75);
+
+    backdrop-filter:blur(8px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modalBox{
+    width:100%;
+    max-width:700px;
+    max-height:85vh;
+
+    overflow:auto;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+}
+
+.modalTop{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.modalTop h2{
+    font-size:22px;
+}
+
+.close{
+    width:35px;
+    height:35px;
+
+    border:0;
+
+    border-radius:9px;
+
+    background:#fee2e2;
+    color:#dc2626;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+.meta{
+    color:#2563eb;
+
+    font-size:8px;
+    font-weight:bold;
+
+    margin-bottom:15px;
+}
+
+.content{
+    color:#334155;
+
+    font-size:11px;
+
+    line-height:1.9;
+
+    white-space:pre-wrap;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+    .notesGrid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+}
+
+@media(max-width:550px){
+
+    main{
+        padding:25px 4%;
+    }
+
+    .hero{
+        padding:25px;
+    }
+
+    .notesGrid{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        padding:0 4%;
+    }
+
+    .brand h2{
+        font-size:12px;
+    }
+
+    .back{
+        padding:9px 10px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+<a href="student-dashboard.html" class="brand">
+
+<div class="logo">
+S³
+</div>
+
+<div>
+<h2>
+Siinaaf School Hub
+</h2>
+
+<small>
+Digital Notes
+</small>
+</div>
+
+</a>
+
+<a
+href="student-dashboard.html"
+class="back"
+>
+← DASHBOARD
+</a>
+
+</header>
+
+
+<main>
+
+
+<section class="hero">
+
+<small>
+DIGITAL LEARNING
+</small>
+
+<h1>
+Study Notes
+</h1>
+
+<p>
+Access organized study materials uploaded
+through the Siinaaf School Hub developer system.
+</p>
+
+</section>
+
+
+<div class="controls">
+
+<input
+type="search"
+id="search"
+class="search"
+placeholder="Search notes..."
+oninput="renderNotes()"
+>
+
+<select
+id="subjectFilter"
+onchange="renderNotes()"
+>
+
+<option value="all">
+All Subjects
+</option>
+
+<option value="Biology">
+Biology
+</option>
+
+<option value="Chemistry">
+Chemistry
+</option>
+
+<option value="Physics">
+Physics
+</option>
+
+<option value="Mathematics">
+Mathematics
+</option>
+
+<option value="English">
+English
+</option>
+
+</select>
+
+</div>
+
+
+<div
+id="notesGrid"
+class="notesGrid"
+></div>
+
+
+<div
+id="empty"
+class="empty"
+>
+📚
+
+<br><br>
+
+No notes found.
+
+<br>
+
+New notes added by the developer
+will appear here automatically.
+
+</div>
+
+
+</main>
+
+
+<!-- ================= MODAL ================= -->
+
+<div
+id="modal"
+class="modal"
+onclick="closeOutside(event)"
+>
+
+<div class="modalBox">
+
+<div class="modalTop">
+
+<h2 id="modalTitle">
+Note
+</h2>
+
+<button
+class="close"
+onclick="closeNote()"
+>
+×
+</button>
+
+</div>
+
+<div
+id="modalMeta"
+class="meta"
+>
+</div>
+
+<div
+id="modalContent"
+class="content"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+if(
+    localStorage.getItem(
+        "siinaafStudentLoggedIn"
+    ) !== "true"
+){
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+
+/* =====================================================
+   DEFAULT NOTES
+===================================================== */
+
+const defaultNotes = [
+
+{
+    id:"default-biology",
+    title:"Introduction to Biology",
+    subject:"Biology",
+    description:
+        "Basic concepts of biology, characteristics of living organisms and levels of organization.",
+    content:
+`BIOLOGY — INTRODUCTION
+
+Biology is the scientific study of life.
+
+Major characteristics of living organisms include:
+
+1. Nutrition
+2. Respiration
+3. Growth
+4. Reproduction
+5. Excretion
+6. Movement
+7. Sensitivity
+
+Major branches include:
+• Botany
+• Zoology
+• Microbiology
+• Genetics
+• Ecology
+
+Study the characteristics carefully and practice related questions.`,
+    image:
+        "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=900&q=80"
+},
+
+{
+    id:"default-chemistry",
+    title:"Chemical Reactions",
+    subject:"Chemistry",
+    description:
+        "Learn the fundamentals of chemical reactions and how chemical equations represent them.",
+    content:
+`CHEMISTRY — CHEMICAL REACTIONS
+
+A chemical reaction is a process in which one or more substances are converted into new substances.
+
+General form:
+
+Reactants → Products
+
+Important types include:
+
+1. Combination
+2. Decomposition
+3. Single displacement
+4. Double displacement
+5. Combustion
+
+Remember:
+A balanced chemical equation has the same number of atoms of each element on both sides.`,
+    image:
+        "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=80"
+},
+
+{
+    id:"default-physics",
+    title:"Work, Energy and Power",
+    subject:"Physics",
+    description:
+        "Review the fundamental relationships between work, energy and power.",
+    content:
+`PHYSICS — WORK, ENERGY AND POWER
+
+Work:
+
+W = Fd cosθ
+
+Where:
+W = work
+F = force
+d = displacement
+θ = angle between force and displacement
+
+Kinetic Energy:
+
+KE = 1/2 mv²
+
+Gravitational Potential Energy:
+
+PE = mgh
+
+Power:
+
+P = W/t
+
+Always check the units before solving numerical problems.`,
+    image:
+        "https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?auto=format&fit=crop&w=900&q=80"
+},
+
+{
+    id:"default-math",
+    title:"Functions",
+    subject:"Mathematics",
+    description:
+        "Review the basic concept of functions, domain, range and notation.",
+    content:
+`MATHEMATICS — FUNCTIONS
+
+A function assigns each input exactly one output.
+
+It is commonly written as:
+
+f(x)
+
+Important concepts:
+
+• Domain — possible input values
+• Range — resulting output values
+• Independent variable
+• Dependent variable
+
+Example:
+
+f(x) = 2x + 3
+
+If x = 2:
+
+f(2) = 2(2) + 3
+     = 7`,
+    image:
+        "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=900&q=80"
+}
+
+];
+
+
+/* =====================================================
+   GET DEVELOPER NOTES
+===================================================== */
+
+function getDeveloperNotes(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "siinaafNotes"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   COMBINE NOTES
+===================================================== */
+
+function getAllNotes(){
+
+    const developerNotes =
+        getDeveloperNotes();
+
+    return [
+        ...defaultNotes,
+        ...developerNotes
+    ];
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function renderNotes(){
+
+    const grid =
+        document.getElementById(
+            "notesGrid"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+    const search =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+    const subject =
+        document.getElementById(
+            "subjectFilter"
+        )
+        .value;
+
+
+    let notes =
+        getAllNotes();
+
+
+    notes =
+        notes.filter(
+            note => {
+
+                const title =
+                    String(
+                        note.title || ""
+                    )
+                    .toLowerCase();
+
+                const noteSubject =
+                    String(
+                        note.subject || ""
+                    );
+
+
+                const matchesSearch =
+                    title.includes(search);
+
+
+                const matchesSubject =
+                    subject === "all" ||
+                    noteSubject === subject;
+
+
+                return (
+                    matchesSearch &&
+                    matchesSubject
+                );
+
+            }
+        );
+
+
+    grid.innerHTML = "";
+
+
+    if(notes.length === 0){
+
+        empty.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    notes.forEach(
+        note => {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+            card.className =
+                "note";
+
+
+            const image =
+                note.image ||
+                "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=900&q=80";
+
+
+            card.innerHTML = `
+
+                <img
+                    class="noteImage"
+                    src="${escapeHTML(image)}"
+                    alt="Note"
+                >
+
+                <div class="noteBody">
+
+                    <span class="tag">
+                        ${escapeHTML(
+                            note.subject || "Study"
+                        )}
+                    </span>
+
+                    <h3>
+                        ${escapeHTML(
+                            note.title || "Untitled Note"
+                        )}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            note.description || ""
+                        )}
+                    </p>
+
+                    <button
+                        onclick="openNote('${escapeHTML(
+                            String(note.id)
+                        )}')"
+                    >
+                        READ NOTE →
+                    </button>
+
+                </div>
+
+            `;
+
+
+            grid.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   OPEN NOTE
+===================================================== */
+
+function openNote(id){
+
+    const note =
+        getAllNotes()
+        .find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(!note){
+        return;
+    }
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        note.title || "Note";
+
+
+    document.getElementById(
+        "modalMeta"
+    ).textContent =
+        note.subject || "Study Material";
+
+
+    document.getElementById(
+        "modalContent"
+    ).textContent =
+        note.content ||
+        note.description ||
+        "No content available.";
+
+
+    document.getElementById(
+        "modal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE
+===================================================== */
+
+function closeNote(){
+
+    document.getElementById(
+        "modal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+function closeOutside(event){
+
+    if(
+        event.target.id === "modal"
+    ){
+
+        closeNote();
+
+    }
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+renderNotes();
+
+</script>
+
+</body>
+</html>
